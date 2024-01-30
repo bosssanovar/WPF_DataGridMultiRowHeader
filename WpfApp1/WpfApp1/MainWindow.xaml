@@ -8,11 +8,63 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="600">
     <Grid Margin="5">
-        <DataGrid Margin="5" ScrollViewer.HorizontalScrollBarVisibility="Visible" ItemsSource="{Binding Items}"
-                  AutoGenerateColumns="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Margin="5,0,5,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{Binding ElementName=col1, Path=ActualWidth}"/>
+                <ColumnDefinition Width="{Binding ElementName=col2, Path=ActualWidth}"/>
+                <ColumnDefinition Width="{Binding ElementName=col3, Path=ActualWidth}"/>
+                <ColumnDefinition Width="{Binding ElementName=col4, Path=ActualWidth}"/>
+                <ColumnDefinition Width="{Binding ElementName=col5, Path=ActualWidth}"/>
+                <ColumnDefinition Width="{Binding ElementName=col6, Path=ActualWidth}"/>
+            </Grid.ColumnDefinitions>
+
+            <!--１行目-->
+            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6"
+                       Margin="0,0,0,0" Text="Header 1" Background="#EEEEEE"/>
+            
+            <!--２行目-->
+            <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                       Margin="0,0,0,0" Text="Header 2-1" Background="#DDDDDD"/>
+            <TextBlock Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3"
+                       Margin="0,0,0,0" Text="Header 2-2" Background="#CCCCCC"/>
+
+            <!--３行目-->
+            <TextBlock Grid.Row="2" Grid.Column="0"
+                       Margin="0,0,0,0" Text="No." Background="#BBBBBB"/>
+            <TextBlock Grid.Row="2" Grid.Column="1"
+                       Margin="0,0,0,0" Text="種別１" Background="#AAAAAA"/>
+            <TextBlock Grid.Row="2" Grid.Column="2"
+                       Margin="0,0,0,0" Text="種別２" Background="#BBBBBB"/>
+            <TextBlock Grid.Row="2" Grid.Column="3"
+                       Margin="0,0,0,0" Text="名前" Background="#AAAAAA"/>
+            <TextBlock Grid.Row="2" Grid.Column="4"
+                       Margin="0,0,0,0" Text="選択" Background="#BBBBBB"/>
+            <TextBlock Grid.Row="2" Grid.Column="5"
+                       Margin="0,0,0,0" Text="備考" Background="#AAAAAA"/>
+        </Grid>
+
+        <DataGrid Grid.Row="1" Margin="5,0,5,5" ScrollViewer.HorizontalScrollBarVisibility="Visible" ItemsSource="{Binding Items}"
+                  AutoGenerateColumns="False" d:ItemsSource="{d:SampleData ItemCount=20}"
+                  FrozenColumnCount="3" RowHeaderWidth="0">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="30" IsReadOnly="True" Header="No." Binding="{Binding Number.Value}"/>
-                <DataGridTemplateColumn Header="種別１" Width="100">
+                <DataGridTextColumn x:Name="col1" Width="30" IsReadOnly="True" Header="No." Binding="{Binding Number.Value}">
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="Background" Value="#33000000"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn x:Name="col2" Header="種別１" Width="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Type1Disp.Value}"/>
@@ -26,7 +78,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="種別2" Width="100">
+                <DataGridTemplateColumn x:Name="col3" Header="種別2" Width="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Type2Disp.Value}"/>
@@ -40,9 +92,9 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Width="200" Header="名前" Binding="{Binding Name.Value}"/>
-                <DataGridCheckBoxColumn Width="50" Header="選択" Binding="{Binding IsCheck.Value}"/>
-                <DataGridTextColumn Width="200" Header="備考" Binding="{Binding Text.Value}"/>
+                <DataGridTextColumn x:Name="col4" Width="200" Header="名前" Binding="{Binding Name.Value}"/>
+                <DataGridCheckBoxColumn x:Name="col5" Width="50" Header="選択" Binding="{Binding IsCheck.Value}"/>
+                <DataGridTextColumn x:Name="col6" Width="200" Header="備考" Binding="{Binding Text.Value}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
