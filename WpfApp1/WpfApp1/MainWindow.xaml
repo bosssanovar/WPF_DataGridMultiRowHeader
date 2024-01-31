@@ -13,7 +13,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Margin="5,0,5,0">
+        <Grid Margin="5,0,5,0" MaxWidth="700" HorizontalAlignment="Left">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -25,7 +25,7 @@
                 <ColumnDefinition Width="{Binding ElementName=col3, Path=ActualWidth}"/>
                 <ColumnDefinition Width="{Binding ElementName=col4, Path=ActualWidth}"/>
                 <ColumnDefinition Width="{Binding ElementName=col5, Path=ActualWidth}"/>
-                <ColumnDefinition Width="{Binding ElementName=col6, Path=ActualWidth}"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <!--１行目-->
@@ -45,17 +45,30 @@
                        Margin="0,0,0,0" Text="種別１" Background="#AAAAAA"/>
             <TextBlock Grid.Row="2" Grid.Column="2"
                        Margin="0,0,0,0" Text="種別２" Background="#BBBBBB"/>
-            <TextBlock Grid.Row="2" Grid.Column="3"
+            <ScrollViewer x:Name="headerScrollViewer" Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3"
+                          HorizontalAlignment="Left"
+                          HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="{Binding ElementName=col4, Path=ActualWidth}"/>
+                        <ColumnDefinition Width="{Binding ElementName=col5, Path=ActualWidth}"/>
+                        <ColumnDefinition Width="{Binding ElementName=col6, Path=ActualWidth}"/>
+                        <ColumnDefinition Width="50"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
                        Margin="0,0,0,0" Text="名前" Background="#AAAAAA"/>
-            <TextBlock Grid.Row="2" Grid.Column="4"
+                    <TextBlock Grid.Column="1"
                        Margin="0,0,0,0" Text="選択" Background="#BBBBBB"/>
-            <TextBlock Grid.Row="2" Grid.Column="5"
+                    <TextBlock Grid.Column="2" Grid.ColumnSpan="2"
                        Margin="0,0,0,0" Text="備考" Background="#AAAAAA"/>
+                </Grid>
+            </ScrollViewer>
         </Grid>
 
-        <DataGrid Grid.Row="1" Margin="5,0,5,5" ScrollViewer.HorizontalScrollBarVisibility="Visible" ItemsSource="{Binding Items}"
+        <DataGrid x:Name="dataGrid" Grid.Row="1" Margin="5,0,5,5" HorizontalAlignment="Left" MaxWidth="800"
+                  ScrollViewer.HorizontalScrollBarVisibility="Visible" ItemsSource="{Binding Items}"
                   AutoGenerateColumns="False" d:ItemsSource="{d:SampleData ItemCount=20}"
-                  FrozenColumnCount="3" RowHeaderWidth="0">
+                  FrozenColumnCount="3" RowHeaderWidth="0" ScrollViewer.ScrollChanged="dataGrid_ScrollChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="col1" Width="30" IsReadOnly="True" Header="No." Binding="{Binding Number.Value}">
                     <DataGridTextColumn.CellStyle>

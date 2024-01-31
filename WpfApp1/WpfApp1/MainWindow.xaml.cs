@@ -29,5 +29,32 @@ namespace WpfApp1
 
             InitializeComponent();
         }
+
+        private void dataGrid_ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            ScrollChanged(sender, e);
+        }
+
+        private void ScrollChanged(object sender, ScrollChangedEventArgs e)
+        {
+            if (sender == headerScrollViewer)
+            {
+                var child = VisualTreeHelper.GetChild(dataGrid, 0) as Decorator;
+                if (child != null)
+                {
+                    var scroll = child.Child as ScrollViewer;
+                    if (scroll != null)
+                    {
+                        scroll.ScrollToVerticalOffset(e.VerticalOffset);
+                        scroll.ScrollToHorizontalOffset(e.HorizontalOffset);
+                    }
+                }
+            }
+            else
+            {
+                headerScrollViewer.ScrollToVerticalOffset(e.VerticalOffset);
+                headerScrollViewer.ScrollToHorizontalOffset(e.HorizontalOffset);
+            }
+        }
     }
 }
